@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route } from "react-router-dom"; // Corrected import statement
+import { HashRouter as Router, Route,Routes } from "react-router-dom"; // Corrected import statement
 import Home from "./Pages/Home"; // Ensure you have imported Home component
 import Register from "./Authentication/Register";
 import Login from "./Authentication/Login";
@@ -14,9 +14,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import AboutUs from "./Components/LandingPage/Aboutus";
 import ContactPage from "./Components/LandingPage/Contactus";
+import CustomerArchiveTable from "./Components/LandingPage/CustomerArchives"; 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />}></Route>
@@ -29,11 +30,11 @@ function App() {
         <Route path="/archive" element={<ArchiveTable />}></Route>
         <Route path="/aboutus" element={<AboutUs />}></Route>
         <Route path="/contactus" element={<ContactPage />}></Route>
-
+        <Route path="/customerarchives/:customer_id" element={<CustomerArchiveTable />} />
 
         <Route path="/registeradmin" element={<RegisterAdmin />}></Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

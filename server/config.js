@@ -2,9 +2,9 @@
 const config = {
   development: {
     database: 'sps',
-    username: 'admin',
-    password: 'databasepassword123',
-    host: 'database-1.ch5xfq1yvx7p.us-east-1.rds.amazonaws.com', // Your RDS endpoint
+    username: 'root',
+    password: 'Itone@123',
+    host: 'localhost',
     dialect: 'mysql'
   },
   test: {

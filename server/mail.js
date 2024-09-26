@@ -54,7 +54,7 @@ const transporter = nodemailer.createTransport({
         <p><strong>Service ${status.charAt(0).toUpperCase() + status.slice(1)} Date:</strong> ${createdDate}</p>
         <p>Thank you for choosing Future Telecom Service Ltd!</p>
         <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
-        <p>Best regards,<br>TelCo Service Ltd</p>
+        <p>Best regards,<br>Future Telecom Service Ltd</p>
       </td>
     </tr>
     <td style="padding: 20px; background-color: #f8f8f8; text-align: center; font-size: 14px; color: #777;">

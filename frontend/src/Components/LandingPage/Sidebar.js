@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./LandingPage"; // Make sure this file contains the new styles
-
+import { Navigate, useNavigate } from "react-router-dom";
 const Sidebar = ({ service, customerId, closeSidebar }) => {
   const [plans, setPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState("");
   const [features, setFeatures] = useState("");
   const [showModal, setShowModal] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Fetch available plans for the selected service
     if (service) {
       const service_id = service.id;
       axios
-        .get(`http://54.175.148.241:8081/plans/${service_id}`)
+        .get(`http://localhost:8081/plans/${service_id}`)
         .then((planRes) => {
           console.log(planRes);
           setPlans(planRes.data);
         })
         .catch((err) => console.log("Error fetching plans:", err));
 
-        axios.get(`http://54.175.148.241:8081/plans/${selectedPlan}/service/${service_id}`)
+        axios.get(`http://localhost:8081/plans/${selectedPlan}/service/${service_id}`)
     .then(res => setFeatures(res.data.features))
     .catch(err => console.log("Error fetching plan features:", err));
     }
@@ -33,7 +33,7 @@ const Sidebar = ({ service, customerId, closeSidebar }) => {
 
     // Fetch features for the selected plan
     axios
-      .get(`http://54.175.148.241:8081/plans/${plan_name}`)
+      .get(`http://localhost:8081/plans/${plan_name}`)
       .then((res) => setFeatures(res.data.features))
       .catch((err) => console.log("Error fetching plan features:", err));
   };
@@ -51,7 +51,7 @@ const Sidebar = ({ service, customerId, closeSidebar }) => {
     };
 
     axios
-      .post("http://54.175.148.241:8081/requests", newService)
+      .post("http://localhost:8081/requests", newService)
       .then((res) => {
         if (res.data.Status === "Success") {
           setShowModal(true);
@@ -69,6 +69,7 @@ const Sidebar = ({ service, customerId, closeSidebar }) => {
   const closeModal = () => {
     setShowModal(false);
     window.location.reload();
+    // navigate(`/?customer_id=${customerId}`)
     closeSidebar(); // Close the sidebar after the modal is dismissed
   };
 

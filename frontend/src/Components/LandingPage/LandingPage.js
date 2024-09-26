@@ -17,12 +17,9 @@ import "./LandingPage.css";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import Configuresidebar from "./ConfigureSidebar";
-import pic1 from "../../Assets/1.png"
-import pic2 from "../../Assets/2.jpg"
-import pic3 from "../../Assets/3.png"
-import pic4 from "../../Assets/4.png"
-import pic5 from "../../Assets/5.png"
-import pic6 from "../../Assets/6.jpg"
+import CustomerArchiveTable from "./CustomerArchives";
+import banner2 from "../../Assets/banner2.jfif"
+
 const LandingPage = () => {
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState("");
@@ -52,7 +49,7 @@ const LandingPage = () => {
 
   useEffect ( () => {
     axios
-              .get(`http://54.175.148.241:8081/services`)
+              .get(`http://localhost:8081/services`)
               .then((services) => {
                 if (services.data) {
                   setAvailableServices(services.data);
@@ -69,7 +66,7 @@ const LandingPage = () => {
      
 
     axios
-      .get("http://54.175.148.241:8081")
+      .get("http://localhost:8081")
       .then((res) => {
         if (res.data.Status === "Success") {
           setAuth(true);
@@ -77,7 +74,7 @@ const LandingPage = () => {
 
 
           axios
-              .get(`http://54.175.148.241:8081/services`)
+              .get(`http://localhost:8081/services`)
               .then((services) => {
                 if (services.data) {
                   setAvailableServices(services.data);
@@ -91,7 +88,7 @@ const LandingPage = () => {
           // Fetch customer-specific data using the customer_id
           if (customer_id) {
             axios
-              .get(`http://54.175.148.241:8081/customer/${customer_id}`)
+              .get(`http://localhost:8081/customer/${customer_id}`)
               .then((customerRes) => {
                 if (customerRes.data) {
                   setCustomerDetails(customerRes.data);
@@ -108,7 +105,7 @@ const LandingPage = () => {
       })
       .catch((err) => console.log(err));
 
-      axios.get(`http://54.175.148.241:8081/requests/${customer_id}`)
+      axios.get(`http://localhost:8081/requests/${customer_id}`)
       .then(res => {
         if (Array.isArray(res.data)) {
           setRequests(res.data);
@@ -198,7 +195,7 @@ const LandingPage = () => {
 
   const handleLogout = () => {
     axios
-      .get("http://54.175.148.241:8081/logout")
+      .get("http://localhost:8081/logout")
       .then((res) => {
         if (res.data.Status === "Success") {
           setAuth(false);
@@ -243,9 +240,12 @@ const LandingPage = () => {
   };
 
   // Fetch plans for the selected service
+  const handleHistory = () => {
+    navigate(`/customerarchives/${customer_id}`);
+  }
   const fetchPlans = (serviceId) => {
     axios
-      .get(`http://54.175.148.241:8081/plans?service_id=${serviceId}`)
+      .get(`http://localhost:8081/plans?service_id=${serviceId}`)
       .then((res) => setPlans(res.data))
       .catch((err) => console.log(err));
   };
@@ -273,7 +273,7 @@ const LandingPage = () => {
   // };
 
 //   axios
-//   .post("http://54.175.148.241:8081/requests", newService)
+//   .post("http://localhost:8081/requests", newService)
 //   .then((res) => {
 //     if (res.data.Status === "Success") {
 //       alert("Request sent successfully! Awaiting admin approval.");
@@ -327,6 +327,7 @@ const LandingPage = () => {
             <Dropdown.Menu>
               <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
               <Dropdown.Item onClick={handleConfigureService}>My Services</Dropdown.Item>
+              <Dropdown.Item onClick={handleHistory}>Service History</Dropdown.Item>
               <Dropdown.Item href="/contactus">Help</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -348,8 +349,8 @@ const LandingPage = () => {
             <img className="d-block w-100" src="https://www.myvi.in/content/dam/vodafoneideadigital/StaticPages/consumerimages/Enterprise/5G_Enterprise/5g_desktop_webherobanner.png" alt="Second slide" />
           </Carousel.Item>
           <Carousel.Item>
-            <img className="d-block w-100" src="https://www.myvi.in/content/dam/vodafoneideadigital/consumerblog/Giganet_Banner_Desktop_1024x336px.png" alt="Third slide" />
-          </Carousel.Item>
+          <img className="d-block w-100" src={banner2} alt="Third slide" />
+                    </Carousel.Item>
           
           
         </Carousel>

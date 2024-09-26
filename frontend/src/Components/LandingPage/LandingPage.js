@@ -49,7 +49,7 @@ const LandingPage = () => {
 
   useEffect ( () => {
     axios
-              .get(`http://localhost:8081/services`)
+              .get(`http://54.175.148.241:8081/services`)
               .then((services) => {
                 if (services.data) {
                   setAvailableServices(services.data);
@@ -66,7 +66,7 @@ const LandingPage = () => {
      
 
     axios
-      .get("http://localhost:8081")
+      .get("http://54.175.148.241:8081")
       .then((res) => {
         if (res.data.Status === "Success") {
           setAuth(true);
@@ -74,7 +74,7 @@ const LandingPage = () => {
 
 
           axios
-              .get(`http://localhost:8081/services`)
+              .get(`http://54.175.148.241:8081/services`)
               .then((services) => {
                 if (services.data) {
                   setAvailableServices(services.data);
@@ -88,7 +88,7 @@ const LandingPage = () => {
           // Fetch customer-specific data using the customer_id
           if (customer_id) {
             axios
-              .get(`http://localhost:8081/customer/${customer_id}`)
+              .get(`http://54.175.148.241:8081/customer/${customer_id}`)
               .then((customerRes) => {
                 if (customerRes.data) {
                   setCustomerDetails(customerRes.data);
@@ -105,7 +105,7 @@ const LandingPage = () => {
       })
       .catch((err) => console.log(err));
 
-      axios.get(`http://localhost:8081/requests/${customer_id}`)
+      axios.get(`http://54.175.148.241:8081/requests/${customer_id}`)
       .then(res => {
         if (Array.isArray(res.data)) {
           setRequests(res.data);
@@ -195,7 +195,7 @@ const LandingPage = () => {
 
   const handleLogout = () => {
     axios
-      .get("http://localhost:8081/logout")
+      .get("http://54.175.148.241:8081/logout")
       .then((res) => {
         if (res.data.Status === "Success") {
           setAuth(false);
@@ -245,7 +245,7 @@ const LandingPage = () => {
   }
   const fetchPlans = (serviceId) => {
     axios
-      .get(`http://localhost:8081/plans?service_id=${serviceId}`)
+      .get(`http://54.175.148.241:8081/plans?service_id=${serviceId}`)
       .then((res) => setPlans(res.data))
       .catch((err) => console.log(err));
   };
@@ -273,7 +273,7 @@ const LandingPage = () => {
   // };
 
 //   axios
-//   .post("http://localhost:8081/requests", newService)
+//   .post("http://54.175.148.241:8081/requests", newService)
 //   .then((res) => {
 //     if (res.data.Status === "Success") {
 //       alert("Request sent successfully! Awaiting admin approval.");

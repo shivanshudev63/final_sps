@@ -20,11 +20,11 @@ const Configuresidebar = ({ customerId, service, closeSidebar }) => {
     const fetchPlanDetails = async () => {
       try {
         const serviceRes = await axios.get(
-          `http://localhost:8081/customer-service/${customerId}/service/${service.service_id}`
+          `http://54.175.148.241:8081/customer-service/${customerId}/service/${service.service_id}`
         );
         setCurrentPlan(serviceRes.data.plan_name);
 
-        const planRes = await axios.get('http://localhost:8081/plans');
+        const planRes = await axios.get('http://54.175.148.241:8081/plans');
         const order = ['basic', 'pro', 'pro-plus', 'premium']; // Define plan order
         const sortedPlans = planRes.data.sort(
           (a, b) => order.indexOf(a.plan_name) - order.indexOf(b.plan_name)
@@ -59,7 +59,7 @@ const Configuresidebar = ({ customerId, service, closeSidebar }) => {
 
   const fetchFeatures =  async (planId) => {
     try {
-      const res = await axios.get(`http://localhost:8081/plans/${planId}/service/${ service.service_id}`);
+      const res = await axios.get(`http://54.175.148.241:8081/plans/${planId}/service/${ service.service_id}`);
       if (res.data && res.data.features) {
         setFeatures(res.data.features);
         return res.data.features;
@@ -120,7 +120,7 @@ const Configuresidebar = ({ customerId, service, closeSidebar }) => {
     
     const fetchPlanFeatures = async (planId, serviceId) => {
       try {
-        const res = await axios.get(`http://localhost:8081/plans/${planId}/service/${serviceId}`);
+        const res = await axios.get(`http://54.175.148.241:8081/plans/${planId}/service/${serviceId}`);
         if (res.data && res.data.features) {
           setFeatures(res.data.features);
           return res.data.features;
@@ -144,7 +144,7 @@ const Configuresidebar = ({ customerId, service, closeSidebar }) => {
     };
 
     try {
-      const res = await axios.post('http://localhost:8081/requests', updatedService);
+      const res = await axios.post('http://54.175.148.241:8081/requests', updatedService);
       if (res.data.Status === 'Success') {
         alert('Request sent to the admin successfully!');
         closeSidebar(); // Close the sidebar after submission
@@ -173,7 +173,7 @@ const Configuresidebar = ({ customerId, service, closeSidebar }) => {
     };
 
     try {
-      const res = await axios.post('http://localhost:8081/requests', terminationRequest);
+      const res = await axios.post('http://54.175.148.241:8081/requests', terminationRequest);
       if (res.data.Status === 'Success') {
         alert('Termination request sent successfully! Awaiting admin approval.');
         closeSidebar(); // Close the sidebar after termination
